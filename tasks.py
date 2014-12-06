@@ -19,7 +19,7 @@ def run_development():
 def clear_pyc():
     run('find . -name "*.pyc" -delete')
 
-@task
+@task(aliases=['reset'])
 def reset_database():
     db.drop_all()
     db.create_all()
