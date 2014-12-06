@@ -10,7 +10,12 @@ def run_tests():
     os.environ["ENV"] = "TEST"
     run('nosetests tests/')
 
-@task()
+@task
+def run_development():
+    os.environ["ENV"] = "DEVELOPMENT"
+    flask_app.run(debug=True)
+
+@task
 def clear_pyc():
     run('find . -name "*.pyc" -delete')
 
@@ -25,7 +30,7 @@ def migrate(command):
     MigrateCommand.handle('', [command])
 
 namespace = Collection()
-for root_tasks in [run_tests, clear_pyc]:
+for root_tasks in [run_tests, run_development, clear_pyc]:
     namespace.add_task(root_tasks)
 
 db_tasks = Collection('db')
