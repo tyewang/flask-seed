@@ -6,7 +6,7 @@ os.environ["ENV"] = "TEST"
 
 @task(default=True, aliases=['run'])
 def run_tests():
-    run('nosetests tests/')
+    run('nosetests tests/', pty=True)
 
 namespace = Collection('test')
 for tasks in [run_tests]:
