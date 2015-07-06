@@ -4,8 +4,6 @@ from functools import wraps
 from flask.ext.migrate import MigrateCommand, Migrate
 from invoke import run, task, Collection
 
-from data.populate_development_data import populate
-
 def _setup_environment(func):
     @wraps(func)
     def decorator(*args, **kwargs):
@@ -31,7 +29,6 @@ def reset_database():
     with app.app_context():
         db.drop_all()
         db.create_all()
-        populate(db)
 
 @task
 # no _setup_environment because decorators break invoke argument passing
